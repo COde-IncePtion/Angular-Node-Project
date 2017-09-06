@@ -1,3 +1,4 @@
+import { MessageService } from './message.service';
 import { Message } from './message.model';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -20,6 +21,17 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class MessageComponent implements OnInit {
     @Input() message: Message;
+    constructor(private messageService: MessageService){
+
+    }
+
+    onEdit(){
+
+    }
+
+    onDelete(){
+        this.messageService.deleteMessage(this.message);
+    }
 
     ngOnInit() {
     }
