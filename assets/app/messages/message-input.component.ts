@@ -13,7 +13,11 @@ export class MessageInputComponent{
     }
 
     onSubmit(formObj: NgForm){
-        this.messageService.addMessage(new Message(formObj.value.message,"Rupinder"));
+        this.messageService.addMessage(new Message(formObj.value.message,"Rupinder"))
+        .subscribe(
+            data => console.log(data),
+            error => console.error(error)
+        );
         // console.log(formObj.value.message);
         formObj.resetForm();
     }

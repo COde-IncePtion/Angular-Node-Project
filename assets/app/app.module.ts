@@ -1,3 +1,4 @@
+import { Http, HttpModule } from '@angular/http';
 import { SignoutComponent } from './auth/signout.component';
 import { SignupComponent } from './auth/signup.component';
 import { SigninComponent } from './auth/signin.component';
@@ -26,7 +27,7 @@ import { routing } from "./app.routing";
         SignupComponent,
         SignoutComponent
     ],
-    imports: [BrowserModule, FormsModule, routing],
+    imports: [BrowserModule, FormsModule, routing, HttpModule],
     bootstrap: [AppComponent]
 })
 export class AppModule {
