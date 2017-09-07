@@ -8,14 +8,14 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class MessageService{
     private messages: Message[] = [];
-    messageIsEdit = new EventEmitter<Message>();
+    messageIsEdit = new EventEmitter<Message>();  // for updating operation
 
     constructor(private http: Http ){
 
     }
 
     addMessage(message: Message){
-        this.messages.push(message);    
+        // this.messages.push(message);    
         var body = JSON.stringify(message);
         var headers = new Headers({"Content-Type":"application/json"});
         return this.http.post("http://localhost:3000/message", body, {headers: headers})
@@ -29,7 +29,7 @@ export class MessageService{
             const messages = response.json().obj;
             let transformedMessages: Message[] = [];
             for(let msg of messages){
-                transformedMessages.push(new Message(msg.content,"ashish",msg.id,null));
+                transformedMessages.push(new Message(msg.content,"ashish",msg._id,null));
             }
             this.messages = transformedMessages;
             return transformedMessages;
@@ -38,8 +38,16 @@ export class MessageService{
     }
 
 
-    onMessageEdit(){
+    editMessage(message: Message){
+        this.messageIsEdit.emit(message);
+    }
 
+    updateMessage(message: Message){
+        var body = JSON.stringify(message);
+        var headers = new Headers({"Content-Type":"application/json"});
+        return this.http.patch("http://localhost:3000/message/"+message.messageId, body, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error: Response) => Observable.throw(error.json()));
     }
 
     deleteMessage(message:Message){

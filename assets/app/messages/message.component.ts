@@ -26,7 +26,7 @@ export class MessageComponent implements OnInit {
     }
 
     onEdit(){
-
+        this.messageService.editMessage(this.message);
     }
 
     onDelete(){
