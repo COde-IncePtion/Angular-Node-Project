@@ -19,7 +19,12 @@ export class MessageService{
         var body = JSON.stringify(message);
         var headers = new Headers({"Content-Type":"application/json"});
         return this.http.post("http://localhost:3000/message", body, {headers: headers})
-            .map((response: Response) => response.json())
+            .map((response: Response) => {
+                const result = response.json();
+                var message=new Message(result.obj.content, "Ashish", result.obj._id, null);
+                this.messages.push(message); 
+                return message;
+            })
             .catch((error: Response) => Observable.throw(error.json()));
     } 
 
@@ -52,5 +57,9 @@ export class MessageService{
 
     deleteMessage(message:Message){
         this.messages.splice(this.messages.indexOf(message),1);
+        var body = JSON.stringify(message);   
+        return this.http.delete("http://localhost:3000/message/"+message.messageId)
+        .map((response :Response)=> response.json())
+        .catch((error: Response) => Observable.throw(error.json()));
     }
 }
