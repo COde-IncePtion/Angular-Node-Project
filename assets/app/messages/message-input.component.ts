@@ -26,7 +26,7 @@ export class MessageInputComponent implements OnInit{
         }
         else{
             // we are creating a new message
-            this.messageService.addMessage(new Message(formObj.value.message,"Rupinder"))
+            this.messageService.addMessage(new Message(formObj.value.message,null))
             .subscribe(
                 data => console.log(data),
                 error => console.error(error)

@@ -1,3 +1,4 @@
+import { AuthService } from './auth/auth.service';
 import { Http, HttpModule } from '@angular/http';
 import { SignoutComponent } from './auth/signout.component';
 import { SignupComponent } from './auth/signup.component';
@@ -28,6 +29,7 @@ import { routing } from "./app.routing";
         SignoutComponent
     ],
     imports: [BrowserModule, FormsModule, routing, HttpModule],
+    providers:[AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
